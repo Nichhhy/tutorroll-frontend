@@ -41,7 +41,6 @@ export default function Index(props) {
             </div>
           )}
         </div>
-        {/*Code Block for white tooltip ends*/}
       </div>
     </div>
   );

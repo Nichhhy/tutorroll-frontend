@@ -19,7 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/findatutor" element={<FindATutor />} />
 
-            <Route path="/form" element={<Tabs />} />
+            <Route path="/joinastutor" element={<Tabs />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </AuthContextProvider>

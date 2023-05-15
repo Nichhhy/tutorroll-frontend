@@ -6,12 +6,12 @@ import { UseContextProvider } from "../Contexts/StepperContext";
 import TeacherStep1 from "./FormSteps/TeacherStep1";
 import TeacherStep2 from "./FormSteps/TeacherStep2";
 import TeacherStep3 from "./FormSteps/TeacherStep3";
+import TeacherStepReview from "./FormSteps/TeacherStepReview";
 
 export default function Tabs() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const steps = [
-    "Login",
     "Personal Details",
     "Tutoring Perfernce",
     "Qualifications",
@@ -26,8 +26,8 @@ export default function Tabs() {
         return <TeacherStep2 />;
       case 3:
         return <TeacherStep3 />;
-      /* case 4:
-        return <Final />; */
+      case 4:
+        return <TeacherStepReview />;
       default:
     }
   };
@@ -35,9 +35,24 @@ export default function Tabs() {
   const handleClick = (direction) => {
     let newStep = currentStep;
 
-    direction === "next" ? newStep++ : newStep--;
+    /*     direction === "next" ? newStep++ : newStep--;
     // check if steps are within bounds
-    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep); */
+
+    switch (direction) {
+      case "next":
+        newStep++;
+        newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+        return console.log("next");
+      case "back":
+        newStep--;
+        newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+        return console.log("back");
+      case "submit":
+        return console.log("submit");
+
+      default:
+    }
   };
 
   return (
@@ -52,13 +67,13 @@ export default function Tabs() {
       </div>
 
       {/* navigation button */}
-      {currentStep !== steps.length && (
-        <StepperControl
-          handleClick={handleClick}
-          currentStep={currentStep}
-          steps={steps}
-        />
-      )}
+      {/* {currentStep !== steps.length && ( */}
+      <StepperControl
+        handleClick={handleClick}
+        currentStep={currentStep}
+        steps={steps}
+      />
+      {/*      )} */}
     </div>
   );
 }

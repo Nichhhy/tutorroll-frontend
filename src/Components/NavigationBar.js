@@ -22,13 +22,13 @@ export default function NavigationBar() {
               Find a Tutor
             </a>
             <a
-              href="/"
+              href="/joinastutor"
               className=" whitespace-nowrap font-Circular font-bold text-[14px] text-[#475467]"
             >
               Join as a Tutor
             </a>
             <a
-              href="/"
+              href="/login"
               className="hover:shadow-md duration-200 box-border gap-[8px] rounded-lg border-[1px] border-[#667085] px-[22px] py-[8px] whitespace-nowrap  font-Circular font-bold text-[14px] text-[#475467]"
             >
               Log In
