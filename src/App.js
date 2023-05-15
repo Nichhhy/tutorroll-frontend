@@ -6,18 +6,23 @@ import Home from "./Pages/Home";
 import Footer from "./Components/Footer";
 import FindATutor from "./Pages/FindATutor";
 import Tabs from "./Components/Tabs";
+import AuthContextProvider from "./Contexts/AuthContext";
+import Login from "./Pages/Login";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavigationBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/findatutor" element={<FindATutor />} />
+        <NavigationBar />{" "}
+        <AuthContextProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/findatutor" element={<FindATutor />} />
 
-          <Route path="/form" element={<Tabs />} />
-        </Routes>{" "}
+            <Route path="/form" element={<Tabs />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </AuthContextProvider>
         <Footer />
       </BrowserRouter>
     </div>

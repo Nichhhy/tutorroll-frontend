@@ -67,8 +67,8 @@ export default function Stepper({ steps, currentStep }) {
     return (
       <div
         key={index}
-        className={`flex justify-center items-center py-[13px] w-full border-t-2 transition duration-500 ease-in-out ${
-          step.highlighted ? "border-[#026AA2]" : "border-gray-300 "
+        className={`flex justify-center items-center py-[13px] w-full border-t-2 transition duration-500 ease-in-out  ${
+          step.selected ? "border-[#026AA2]" : "border-gray-300 "
         }  ${step.completed ? "border-[#026AA2]" : "border-gray-300 "}`}
       >
         <div
@@ -117,7 +117,7 @@ export default function Stepper({ steps, currentStep }) {
   });
 
   return (
-    <div className=" flex justify-between items-center w-full">
+    <div className=" flex justify-between items-center w-full fixed top-[76px] bg-[#F2F4F7] ">
       {stepsDisplay}
     </div>
   );

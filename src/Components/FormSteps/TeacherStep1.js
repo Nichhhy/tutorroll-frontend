@@ -1,9 +1,13 @@
 import { useStepperContext } from "../../Contexts/StepperContext";
 import Tooltip from "../Tooltip";
 import icon from "../../Images/Icon/Bluetick.png";
+import { useEffect } from "react";
 
-export default function Account() {
+export default function TecherStep1() {
   const { userData, setUserData } = useStepperContext();
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,8 +66,8 @@ export default function Account() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["username"] || ""}
-              name="username"
+              value={userData["firstName"] || ""}
+              name="firstName"
               placeholder="First Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
             />
@@ -76,8 +80,8 @@ export default function Account() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["username"] || ""}
-              name="username"
+              value={userData["lastName"] || ""}
+              name="lastName"
               placeholder="last Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
             />
@@ -92,8 +96,8 @@ export default function Account() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["username"] || ""}
-              name="username"
+              value={userData["DOB"] || ""}
+              name="DOB"
               placeholder="First Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
             />
@@ -106,8 +110,8 @@ export default function Account() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["username"] || ""}
-              name="username"
+              value={userData["phone"] || ""}
+              name="phone"
               placeholder="+65 1234 5678"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
             />
@@ -121,34 +125,25 @@ export default function Account() {
           </p>
           <div className="flex gap-[16px]">
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="SPR"
-                name="citizenship"
-                onChange={handleChange}
-                value="HTML"
-                checked
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="SPR"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="citizenship"
+                  onChange={handleChange}
+                  value="Singaporean/PR"
+                />{" "}
                 Singaporean/PR
               </label>
             </div>
 
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="For"
-                name="citizenship"
-                onChange={handleChange}
-                value="CSS"
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="For"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="citizenship"
+                  onChange={handleChange}
+                  value="Foreigner"
+                />{" "}
                 Foreigner
               </label>
             </div>
@@ -162,51 +157,38 @@ export default function Account() {
           </p>
           <div className="flex gap-[16px]">
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                onChange={handleChange}
-                value="HTML"
-                checked
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="male"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="gender"
+                  onChange={handleChange}
+                  value="Male"
+                />{" "}
                 Male
               </label>
             </div>
 
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                onChange={handleChange}
-                value="CSS"
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="female"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="gender"
+                  onChange={handleChange}
+                  value="Female"
+                />{" "}
                 Female
               </label>
             </div>
           </div>
           <div className="flex gap-[16px]">
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="pnts"
-                name="gender"
-                onChange={handleChange}
-                value="HTML"
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="pnts"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="gender"
+                  onChange={handleChange}
+                  value="Prefernottosay"
+                />{" "}
                 Prefer not to say
               </label>
             </div>
@@ -220,66 +202,49 @@ export default function Account() {
           </p>
           <div className="flex gap-[16px]">
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="chi"
-                name="race"
-                onChange={handleChange}
-                value="HTML"
-                checked
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="chi"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="race"
+                  onChange={handleChange}
+                  value="Chinese"
+                />{" "}
                 Chinese
               </label>
             </div>
 
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="ind"
-                name="race"
-                onChange={handleChange}
-                value="CSS"
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="ind"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="race"
+                  onChange={handleChange}
+                  value="Indian"
+                />{" "}
                 Indian
               </label>
             </div>
           </div>
           <div className="flex gap-[16px]">
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="malay"
-                name="race"
-                onChange={handleChange}
-                value="HTML"
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="malay"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="race"
+                  onChange={handleChange}
+                  value="Malay"
+                />{" "}
                 Malay
               </label>
             </div>
             <div className="w-[200px] flex justify-start gap-[8px] items-center">
-              <input
-                type="radio"
-                id="oth"
-                name="race"
-                onChange={handleChange}
-                value="HTML"
-              />
-              <label
-                className="font-normal  text-[#667085] outline-none text-[14px] "
-                for="oth"
-              >
+              <label className="font-normal  text-[#667085] outline-none text-[14px] ">
+                <input
+                  type="radio"
+                  name="race"
+                  onChange={handleChange}
+                  value="Others"
+                />{" "}
                 Others
               </label>
             </div>

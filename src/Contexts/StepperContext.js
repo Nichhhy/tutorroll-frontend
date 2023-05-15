@@ -3,7 +3,9 @@ import { createContext, useContext, useState } from "react";
 const StepperContext = createContext({ userData: "", setUserData: null });
 
 export function UseContextProvider({ children }) {
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState({
+    subjectTaught: [{ level: "", subjects: "", minimum: "" }],
+  });
 
   return (
     <StepperContext.Provider value={{ userData, setUserData }}>

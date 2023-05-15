@@ -3,8 +3,9 @@ import Stepper from "./Stepper";
 import StepperControl from "./StepperControl";
 import { UseContextProvider } from "../Contexts/StepperContext";
 
-import Account from "./FormSteps/Account";
-import Details from "./FormSteps/Details";
+import TeacherStep1 from "./FormSteps/TeacherStep1";
+import TeacherStep2 from "./FormSteps/TeacherStep2";
+import TeacherStep3 from "./FormSteps/TeacherStep3";
 
 export default function Tabs() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -20,12 +21,12 @@ export default function Tabs() {
   const displayStep = (step) => {
     switch (step) {
       case 1:
-        return <Account />;
+        return <TeacherStep1 />;
       case 2:
-        return <Details />;
-      /* case 3:
-        return <Payment />;
-      case 4:
+        return <TeacherStep2 />;
+      case 3:
+        return <TeacherStep3 />;
+      /* case 4:
         return <Final />; */
       default:
     }
@@ -42,10 +43,10 @@ export default function Tabs() {
   return (
     <div className="w-full flex justify-center items-center flex-col bg-[#F2F4F7]">
       {/* Stepper */}
-      <div className=" w-full max-w-[1440px] flex flex-col justify-center items-center ">
+      <div className=" w-full max-w-[1440px] flex flex-col justify-center items-center  ">
         <Stepper steps={steps} currentStep={currentStep} />
 
-        <div className="my-10 p-10 w-full max-w-[560px] px-[32px] py-[24px] bg-white rounded-[10px]">
+        <div className="my-[70px] p-10 w-full max-w-[560px] px-[32px] py-[24px] bg-white rounded-[10px]">
           <UseContextProvider>{displayStep(currentStep)}</UseContextProvider>
         </div>
       </div>
