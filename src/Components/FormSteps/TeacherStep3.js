@@ -17,7 +17,7 @@ export default function TeacherStep3() {
         <select
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
           placeholder="Select Level"
-          name="level"
+          name="highestEd"
         >
           <option value="fruit">Fruit</option>
           <option value="vegetable">Vegetable</option>
@@ -31,7 +31,7 @@ export default function TeacherStep3() {
         <select
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
           placeholder="Select Level"
-          name="level"
+          name="tutorCat"
         >
           <option value="fruit">Fruit</option>
           <option value="vegetable">Vegetable</option>
@@ -45,7 +45,7 @@ export default function TeacherStep3() {
         <select
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
           placeholder="Select Level"
-          name="level"
+          name="YOE"
         >
           <option value="fruit">Fruit</option>
           <option value="vegetable">Vegetable</option>
@@ -53,13 +53,13 @@ export default function TeacherStep3() {
         </select>
       </div>
       <div className="flex flex-col justify-start gap-[6px]">
-        <p className="font-normal text-[#475467] text-[14px] text-left">
-          How many years of teaching experience do you have?
-        </p>
-        <p className="font-normal text-[#475467] text-[14px] text-left">
-          Please be descriptive and include:- Years of tutoring experience,
-          number of students taught & their improvements- Relevant subject
-          grades- Other teaching experiences or academic achievements (tuition
+        <p className="font-normal text-[#475467] text-[14px] text-left">Bio</p>
+        <p className="font-normal text-[#475467] text-[12px] text-left">
+          Please be descriptive and include:
+          <br />- Years of tutoring experience, number of students taught &
+          their improvements
+          <br />- Relevant subject grades
+          <br />- Other teaching experiences or academic achievements (tuition
           centre, relief teaching, Dean's list, scholarship etc.)
         </p>
         <input

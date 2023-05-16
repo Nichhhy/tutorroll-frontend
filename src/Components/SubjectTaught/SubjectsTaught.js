@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useStepperContext } from "../../Contexts/StepperContext";
 
 export default function SubjectTaught(props) {
@@ -16,7 +15,7 @@ export default function SubjectTaught(props) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-[16px]">
       <div className="flex flex-col justify-start gap-[6px]">
         <p className="font-normal text-[#475467] text-[14px] text-left">
           Level

@@ -1,6 +1,6 @@
 export default function StepperControl({ handleClick, currentStep, steps }) {
   return (
-    <div className="w-full  flex px-[60px]  justify-between bg-white sticky bottom-0">
+    <div className="w-full  flex px-[60px]  justify-center bg-white sticky bottom-0">
       <div className="w-full max-w-[1440px] flex px-[60px] py-[18px] justify-between bg-white">
         <button
           onClick={() => handleClick("back")}

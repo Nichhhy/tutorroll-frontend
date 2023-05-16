@@ -8,6 +8,7 @@ import FindATutor from "./Pages/FindATutor";
 import Tabs from "./Components/Tabs";
 import AuthContextProvider from "./Contexts/AuthContext";
 import Login from "./Pages/Login";
+import TeacherProfile from "./Pages/TeacherProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
             <Route path="/joinastutor" element={<Tabs />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/TeacherProfile" element={<TeacherProfile />} />
           </Routes>
         </AuthContextProvider>
         <Footer />
