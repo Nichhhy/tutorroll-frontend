@@ -1,28 +1,40 @@
 import { useState, useEffect } from "react";
-import { useStepperContext } from "../../Contexts/StepperContext";
 import SubjectTaughtWrapper from "../SubjectTaught/SubjectTaughtWrapper";
 
-export default function Details() {
-  const { userData, setUserData } = useStepperContext();
+import { useSelector, useDispatch } from "react-redux";
 
-  const [checkedItems, setCheckedItems] = useState([]);
+import { updateLocation, updateTutStyle } from "../../Contexts/Slice/UserPref";
+
+const BACKEND_URL = "http://localhost:8080";
+
+export default function Details() {
+  const userPref = useSelector((state) => state.userPref);
+  /*   const [step2, setStep2] = useState(userPref); */
+  const [checkedItems, setCheckedItems] = useState(userPref.location);
+  const [checkedStyle, setcheckedStyle] = useState(userPref.tutStyle);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setUserData({
-      ...userData,
-      location: checkedItems,
-    });
+    dispatch(updateLocation(checkedItems));
   }, [checkedItems]);
 
   useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+    dispatch(updateTutStyle(checkedStyle));
+  }, [checkedStyle]);
 
   const handleChange = (e) => {
     if (e.target.checked) {
       setCheckedItems([...checkedItems, e.target.value]);
     } else {
       setCheckedItems(checkedItems.filter((item) => item !== e.target.value));
+    }
+  };
+
+  const handleChangeTutStyle = (e) => {
+    if (e.target.checked) {
+      setcheckedStyle([...checkedStyle, e.target.value]);
+    } else {
+      setcheckedStyle(checkedStyle.filter((item) => item !== e.target.value));
     }
   };
 
@@ -42,6 +54,7 @@ export default function Details() {
               value="North"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("North")}
             />
             <div>
               North
@@ -58,6 +71,7 @@ export default function Details() {
               value="North West"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("North West")}
             />
             <div>
               North West
@@ -77,6 +91,7 @@ export default function Details() {
               value="West"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("West")}
             />
             <div>
               West
@@ -94,6 +109,7 @@ export default function Details() {
               value="Central"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("Central")}
             />
             <div>
               Central
@@ -113,6 +129,7 @@ export default function Details() {
               value="North East"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("North East")}
             />
             <div>
               North East
@@ -130,6 +147,7 @@ export default function Details() {
               value="East"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("East")}
             />
             <div>
               East
@@ -149,6 +167,7 @@ export default function Details() {
               value="South"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("South")}
             />
             <div>
               South
@@ -165,6 +184,7 @@ export default function Details() {
               value="any"
               className="w-[16px] mr-[8px] mt-[3px]"
               onChange={handleChange}
+              checked={userPref.location.includes("any")}
             />
             <div>
               I’m ok with anywhere
@@ -175,8 +195,56 @@ export default function Details() {
           </label>
         </div>
       </div>
+      <p className="font-normal text-[#475467] text-[14px] leading-8 text-left">
+        What style of tuition do you provide? (you can select more than one)
+      </p>
+      <div className="flex gap-[16px] ">
+        <div className="w-full flex justify-start items-start">
+          <label className="font-medium text-[#475467] text-[14px] text-left flex justify-start items-start">
+            <input
+              type="checkbox"
+              value="1-1 Tuition"
+              className="w-[16px] mr-[8px] mt-[3px]"
+              onChange={handleChangeTutStyle}
+              checked={userPref.tutStyle.includes("1-1 Tuition")}
+            />
+            <div>1-1 Tuition</div>
+          </label>
+        </div>
+        <div className="w-full flex justify-start items-start">
+          <label className="font-medium text-[#475467] text-[14px] text-left flex justify-start items-start">
+            <input
+              type="checkbox"
+              value="Group Tuition"
+              className="w-[16px] mr-[8px] mt-[3px]"
+              onChange={handleChangeTutStyle}
+              checked={userPref.tutStyle.includes("Group Tuition")}
+            />
+            <div>Group Tuition</div>
+          </label>
+        </div>
+      </div>
 
-      <SubjectTaughtWrapper />
+      <div className="flex gap-[16px] ">
+        <div className="w-full flex justify-start items-start">
+          <label className="font-medium text-[#475467] text-[14px] text-left flex justify-start items-start">
+            <input
+              type="checkbox"
+              value="Online Tuition"
+              className="w-[16px] mr-[8px] mt-[3px]"
+              onChange={handleChangeTutStyle}
+              checked={userPref.tutStyle.includes("Online Tuition")}
+            />
+            <div>Online Tuition</div>
+          </label>
+        </div>
+      </div>
+      <div>
+        <p className="font-medium text-[#1D2939] text-[14px] text-left">
+          Subjects Taught
+        </p>
+        <SubjectTaughtWrapper />
+      </div>
     </div>
   );
 }

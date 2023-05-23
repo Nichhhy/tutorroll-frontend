@@ -26,12 +26,6 @@ export default function StepperControl({ handleClick, currentStep, steps }) {
             Next
           </button>
         )}
-        {/* <button
-          onClick={() => handleClick("next")}
-          className="hover:shadow-md hover:bg-[#026AA2] duration-300 bg-[#0086C9] px-[24px]  py-[8px] rounded-lg text-white "
-        >
-          {currentStep === steps.length ? "Submit" : "Next"}
-        </button> */}
       </div>
     </div>
   );

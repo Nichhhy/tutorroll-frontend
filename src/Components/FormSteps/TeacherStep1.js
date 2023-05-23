@@ -1,17 +1,36 @@
-import { useStepperContext } from "../../Contexts/StepperContext";
 import Tooltip from "../Tooltip";
 import icon from "../../Images/Icon/Bluetick.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateFirstName,
+  updateLastName,
+  updateDOB,
+  updatePhone,
+  updateCitizenship,
+  updateGender,
+  updateRace,
+} from "../../Contexts/Slice/UserPersonalDetailSlice";
 
 export default function TecherStep1() {
-  const { userData, setUserData } = useStepperContext();
+  const userPersonal = useSelector((state) => state.userPersonal);
+  const [step1, setStep1] = useState(userPersonal);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+    dispatch(updateFirstName(step1.firstName));
+    dispatch(updateLastName(step1.lastName));
+    dispatch(updateDOB(step1.DOB));
+    dispatch(updatePhone(step1.phone));
+    dispatch(updateCitizenship(step1.citizenship));
+    dispatch(updateGender(step1.gender));
+    dispatch(updateRace(step1.race));
+  }, [step1]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
+    setStep1({ ...step1, [name]: value.trim() });
   };
 
   const tooltip1 = (
@@ -66,7 +85,7 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["firstName"] || ""}
+              value={step1["firstName"] || ""}
               name="firstName"
               placeholder="First Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
@@ -80,7 +99,7 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["lastName"] || ""}
+              value={step1["lastName"] || ""}
               name="lastName"
               placeholder="last Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
@@ -96,7 +115,7 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["DOB"] || ""}
+              value={step1["DOB"] || ""}
               name="DOB"
               placeholder="First Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
@@ -110,7 +129,7 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={userData["phone"] || ""}
+              value={step1["phone"] || ""}
               name="phone"
               placeholder="+65 1234 5678"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
@@ -131,6 +150,7 @@ export default function TecherStep1() {
                   name="citizenship"
                   onChange={handleChange}
                   value="Singaporean/PR"
+                  checked={step1.citizenship === "Singaporean/PR"}
                 />{" "}
                 Singaporean/PR
               </label>
@@ -143,6 +163,7 @@ export default function TecherStep1() {
                   name="citizenship"
                   onChange={handleChange}
                   value="Foreigner"
+                  checked={step1.citizenship === "Foreigner"}
                 />{" "}
                 Foreigner
               </label>
@@ -163,6 +184,7 @@ export default function TecherStep1() {
                   name="gender"
                   onChange={handleChange}
                   value="Male"
+                  checked={step1.gender === "Male"}
                 />{" "}
                 Male
               </label>
@@ -175,6 +197,7 @@ export default function TecherStep1() {
                   name="gender"
                   onChange={handleChange}
                   value="Female"
+                  checked={step1.gender === "Female"}
                 />{" "}
                 Female
               </label>
@@ -188,6 +211,7 @@ export default function TecherStep1() {
                   name="gender"
                   onChange={handleChange}
                   value="Prefernottosay"
+                  checked={step1.gender === "Prefernottosay"}
                 />{" "}
                 Prefer not to say
               </label>
@@ -208,6 +232,7 @@ export default function TecherStep1() {
                   name="race"
                   onChange={handleChange}
                   value="Chinese"
+                  checked={step1.race === "Chinese"}
                 />{" "}
                 Chinese
               </label>
@@ -220,6 +245,7 @@ export default function TecherStep1() {
                   name="race"
                   onChange={handleChange}
                   value="Indian"
+                  checked={step1.race === "Indian"}
                 />{" "}
                 Indian
               </label>
@@ -233,6 +259,7 @@ export default function TecherStep1() {
                   name="race"
                   onChange={handleChange}
                   value="Malay"
+                  checked={step1.race === "Malay"}
                 />{" "}
                 Malay
               </label>
@@ -244,6 +271,7 @@ export default function TecherStep1() {
                   name="race"
                   onChange={handleChange}
                   value="Others"
+                  checked={step1.race === "Others"}
                 />{" "}
                 Others
               </label>

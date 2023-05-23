@@ -1,28 +1,48 @@
 import SubjectTaught from "./SubjectsTaught";
 import plusButton from "../../Images/Icon/PlusButton.png";
-import { useStepperContext } from "../../Contexts/StepperContext";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addtoSubjectsTaught,
+  deleteSubject,
+} from "../../Contexts/Slice/UserPref";
+
+import deleteIcon from "../../Images/Icon/deleteIcon.png";
 
 export default function SubjectTaughtWrapper() {
-  const { userData, setUserData } = useStepperContext();
+  const userPref = useSelector((state) => state.userPref);
+
+  const dispatch = useDispatch();
 
   const addButton = () => {
-    setUserData({
-      ...userData,
-      subjectTaught: [
-        ...userData.subjectTaught,
-        { level: "", subjects: "", minimum: "" },
-      ],
-    });
+    dispatch(addtoSubjectsTaught());
+  };
+
+  const deleteSubjectTaught = (index) => {
+    dispatch(deleteSubject(index));
   };
 
   return (
     <div>
-      {userData.subjectTaught.map((item, i) => (
+      {userPref.subjectTaught.map((item, i) => (
         <div
           className="bg-[#F9FAFB] p-[16px] flex flex-col gap-[16px] my-[8px] rounded-lg "
           key={i}
         >
-          {console.log(i)}
+          {i !== 0 ? (
+            <div
+              className="flex justify-end"
+              onClick={() => deleteSubjectTaught(i)}
+            >
+              <img
+                src={deleteIcon}
+                alt="deleteIcon"
+                className="cursor-pointer w-[12px]"
+              ></img>
+            </div>
+          ) : (
+            ""
+          )}
+
           <SubjectTaught index={i} />
         </div>
       ))}

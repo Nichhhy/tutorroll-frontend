@@ -1,13 +1,31 @@
-import { useStepperContext } from "../../Contexts/StepperContext";
+import { useSelector, useDispatch } from "react-redux";
+import { updateSecSch } from "../../Contexts/Slice/UserQualification";
 
 export default function SecondarySchool(props) {
-  const { userData, setUserData } = useStepperContext();
+  const userQualification = useSelector((state) => state.userQualification);
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
-    setUserData({
-      ...userData,
-      secSch: { ...userData.secSch, [e.target.name]: e.target.value },
-    });
+    switch (e.target.name) {
+      case "institution":
+        dispatch(
+          updateSecSch({ type: "institution", institution: e.target.value })
+        );
+        break;
+      case "startDate":
+        dispatch(
+          updateSecSch({ type: "startDate", startDate: e.target.value })
+        );
+        break;
+      case "endDate":
+        dispatch(updateSecSch({ type: "endDate", endDate: e.target.value }));
+        break;
+      case "grade":
+        dispatch(updateSecSch({ type: "grade", grade: e.target.value }));
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -16,16 +34,13 @@ export default function SecondarySchool(props) {
         <p className="font-normal text-[#475467] text-[14px] text-left">
           Institution
         </p>
-        <select
+        <input
           name="institution"
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
-          placeholder="Select Level"
+          placeholder="Enter Institution"
+          value={userQualification.secSch.institution}
           onChange={onChange}
-        >
-          <option value="fruit">Fruit</option>
-          <option value="vegetable">Vegetable</option>
-          <option value="meat">Meat</option>
-        </select>
+        ></input>
       </div>
 
       <div className="flex  justify-start gap-[6px] w-full">
@@ -33,47 +48,38 @@ export default function SecondarySchool(props) {
           <p className="font-normal text-[#475467] text-[14px] text-left">
             Start date
           </p>
-          <select
+          <input
             name="startDate"
             className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
-            placeholder="Select Level"
+            placeholder="Enter Start date"
+            value={userQualification.secSch.startDate}
             onChange={onChange}
-          >
-            <option value="fruit">Fruit</option>
-            <option value="vegetable">Vegetable</option>
-            <option value="meat">Meat</option>
-          </select>
+          ></input>
         </div>
         <div className="w-full flex flex-col justify-start">
           <p className="font-normal text-[#475467] text-[14px] text-left">
             End date (or expected)
           </p>
-          <select
+          <input
             name="endDate"
             className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
-            placeholder="Select Level"
+            placeholder="Enter End date"
+            value={userQualification.secSch.endDate}
             onChange={onChange}
-          >
-            <option value="fruit">Fruit</option>
-            <option value="vegetable">Vegetable</option>
-            <option value="meat">Meat</option>
-          </select>
+          ></input>
         </div>
       </div>
       <div className="flex flex-col justify-start gap-[6px]">
         <p className="font-normal text-[#475467] text-[14px] text-left">
           Grade
         </p>
-        <select
+        <input
           name="grade"
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
-          placeholder="Select Level"
+          placeholder="Enter Grade"
+          value={userQualification.secSch.grade}
           onChange={onChange}
-        >
-          <option value="fruit">Fruit</option>
-          <option value="vegetable">Vegetable</option>
-          <option value="meat">Meat</option>
-        </select>
+        ></input>
       </div>
     </div>
   );

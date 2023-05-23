@@ -1,6 +1,37 @@
 import EducationWrapper from "../Education/EducationWrapper";
+import {
+  updateHighestEd,
+  updateTutorCat,
+  updateYOE,
+  updateBio,
+} from "../../Contexts/Slice/UserQualification";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function TeacherStep3() {
+  const userQualification = useSelector((state) => state.userQualification);
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    switch (e.target.name) {
+      case "highestEd":
+        dispatch(updateHighestEd(e.target.value));
+        break;
+      case "tutorCat":
+        dispatch(updateTutorCat(e.target.value));
+        break;
+      case "YOE":
+        dispatch(updateYOE(e.target.value));
+        break;
+      case "bio":
+        dispatch(updateBio(e.target.value));
+        break;
+
+      default:
+        break;
+    }
+    /* setUserData({ ...userData, [name]: value }); */
+  };
+
   return (
     <div className="flex flex-col gap-[16px]">
       <p className="font-medium text-[#1D2939] text-[24px] leading-8 text-left">
@@ -18,10 +49,22 @@ export default function TeacherStep3() {
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
           placeholder="Select Level"
           name="highestEd"
+          onChange={handleChange}
+          value={userQualification.highestEd}
         >
-          <option value="fruit">Fruit</option>
-          <option value="vegetable">Vegetable</option>
-          <option value="meat">Meat</option>
+          <option value="N/O Level">N/O Level</option>
+          <option value="Polytechnic/Diploma Student">
+            Polytechnic/Diploma Student
+          </option>
+          <option value="Polytechnic/Diploma Graduate">
+            Polytechnic/Diploma Graduate
+          </option>
+          <option value="A-level Student">A-level Student</option>
+          <option value="A-level Graduate">A-level Graduate</option>
+          <option value="Undergraduate ">Undergraduate</option>
+          <option value="Graduate">Graduate</option>
+          <option value="Master's Degree Holder">Master's Degree Holder</option>
+          <option value="PhD Holder">PhD Holder</option>
         </select>
       </div>
       <div className="flex flex-col justify-start gap-[6px]">
@@ -32,10 +75,15 @@ export default function TeacherStep3() {
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
           placeholder="Select Level"
           name="tutorCat"
+          onChange={handleChange}
+          value={userQualification.tutorCat}
         >
-          <option value="fruit">Fruit</option>
-          <option value="vegetable">Vegetable</option>
-          <option value="meat">Meat</option>
+          <option value="Part-time Tutor">Part-time Tutor</option>
+          <option value="Full-time Tutor">Full-time Tutor</option>
+          <option value="Ex-MOE Teacher">Ex-MOE Teacher</option>
+          <option value="MOE Teacher ">MOE Teacher </option>
+          <option value="Ex-School Teacher">Ex-School Teacher</option>
+          <option value="NIE Trainee ">NIE Trainee</option>
         </select>
       </div>
       <div className="flex flex-col justify-start gap-[6px]">
@@ -46,10 +94,14 @@ export default function TeacherStep3() {
           className="px-[12px] py-[8px] font-normal text-[#475467] text-[14px]  text-left rounded-lg border border-[#D0D5DD]"
           placeholder="Select Level"
           name="YOE"
+          onChange={handleChange}
+          value={userQualification.YOE}
         >
-          <option value="fruit">Fruit</option>
-          <option value="vegetable">Vegetable</option>
-          <option value="meat">Meat</option>
+          <option value="0-1">0-1</option>
+          <option value="1-3">1-3</option>
+          <option value="3-5">3-5</option>
+          <option value="5-7">5-7</option>
+          <option value="8+">8+</option>
         </select>
       </div>
       <div className="flex flex-col justify-start gap-[6px]">
@@ -65,7 +117,9 @@ export default function TeacherStep3() {
         <input
           className="px-[12px] py-[8px] font-normal h-[160px] text-[#475467] text-[14px] text-left rounded-lg border border-[#D0D5DD]"
           placeholder="Enter text here"
-          name="HMY"
+          name="bio"
+          onChange={handleChange}
+          value={userQualification.bio}
         ></input>
 
         <EducationWrapper />

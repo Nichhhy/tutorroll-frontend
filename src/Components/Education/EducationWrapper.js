@@ -2,28 +2,17 @@ import DipUni from "./DipUni";
 import SecondarySchool from "./SecondarySch";
 import Jc from "./Jc";
 import bluePlusButton from "../../Images/Icon/BluePlusButton.png";
-import { useStepperContext } from "../../Contexts/StepperContext";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addDipUni } from "../../Contexts/Slice/UserQualification";
 
 export default function EducationWrapper(props) {
-  const { userData, setUserData } = useStepperContext();
   const [eductationState, setEducationState] = useState("sec");
+  const userQualification = useSelector((state) => state.userQualification);
+  const dispatch = useDispatch();
 
   const addButton = () => {
-    setUserData({
-      ...userData,
-      dipuni: [
-        ...userData.dipuni,
-        {
-          edLvl: "",
-          institution: "",
-          course: "",
-          startDate: "",
-          endDate: "",
-          grade: "",
-        },
-      ],
-    });
+    dispatch(addDipUni());
   };
 
   const onChange = (type) => {
@@ -45,12 +34,11 @@ export default function EducationWrapper(props) {
           </div>
         );
       case "dipuni":
-        return userData.dipuni.map((item, i) => (
+        return userQualification.dipuni.map((item, i) => (
           <div
             className="bg-[#F9FAFB] p-[16px] flex flex-col gap-[16px] my-[8px] rounded-lg "
             key={i}
           >
-            {console.log(i)}
             <DipUni index={i} />
           </div>
         ));
@@ -94,16 +82,7 @@ export default function EducationWrapper(props) {
         </div>
       </div>
       {displayEd(eductationState)}
-      {/* {userData.subjectTaught.map((item, i) => (
-        <div
-          className="bg-[#F9FAFB] p-[16px] flex flex-col gap-[16px] my-[8px] rounded-lg "
-          key={i}
-        >
-          {console.log(i)}
-          <DipUni index={i} />
-        </div>
-      ))}
- */}
+
       {eductationState === "dipuni" ? (
         <div className="flex justify-start">
           <button className="flex gap-[11px] items-center" onClick={addButton}>

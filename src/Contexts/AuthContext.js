@@ -1,5 +1,5 @@
 import { auth } from "../Firebase";
-
+import axios from "axios";
 import { useContext, createContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
@@ -7,7 +7,10 @@ import {
   signInWithRedirect,
   onAuthStateChanged,
   signOut,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
+
+const BACKEND_URL = "http://localhost:8080";
 
 const AuthContext = createContext();
 
@@ -37,6 +40,36 @@ export default function AuthContextProvider({ children }) {
       });
   };
 
+  const createNewUser = (email, password) => {
+    let existingUser = false;
+
+    axios
+      .get(`${BACKEND_URL}/user/${email}`)
+      .then((response) => {
+        if (response.data.length !== 0) {
+          existingUser = true;
+        }
+      })
+      .then(() => {
+        if (existingUser === false) {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // Signed in
+              setUser(userCredential.user);
+              alert("userCreated");
+              // ...
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ..
+            });
+        } else {
+          alert("shit");
+        }
+      });
+  };
+
   const logout = () => {
     signOut(auth);
   };
@@ -51,7 +84,7 @@ export default function AuthContextProvider({ children }) {
     };
   }, []);
   return (
-    <AuthContext.Provider value={{ googleSignIn }}>
+    <AuthContext.Provider value={{ googleSignIn, createNewUser, logout, user }}>
       {children}
     </AuthContext.Provider>
   );

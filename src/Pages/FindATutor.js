@@ -4,8 +4,54 @@ import clara from "../Images/HomePage/HomePageHero/Clara Lee.png";
 import fatImage1 from "../Images/FinadATutorPage/FATImage1.jpg";
 import fatImage2 from "../Images/FinadATutorPage/FATImage2.jpg";
 import fatImage3 from "../Images/FinadATutorPage/FATImage3.jpg";
+import { UserAuth } from "../Contexts/AuthContext";
+import googleIcon from "../Images/Icon/googleIcon.png";
+import fbIcon from "../Images/Icon/facebookIcon.png";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateEmail,
+  updatePassword,
+  updateUserType,
+} from "../Contexts/Slice/UserLogIn";
 
 export default function FindATutor() {
+  const { createNewUser, googleSignIn } = UserAuth();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const dispatch = useDispatch();
+
+  const handleGoggleSignIn = async () => {
+    try {
+      await googleSignIn();
+      console.log("clicked");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createNewEmailPasswordUser = async () => {
+    try {
+      await createNewUser(userLogin.email, userLogin.password);
+      console.log("clicked");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleChange = (e) => {
+    switch (e.target.name) {
+      case "email":
+        dispatch(updateEmail(e.target.value));
+        break;
+      case "password":
+        dispatch(updatePassword(e.target.value));
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="flex  items-center flex-col ">
       <div className=" flex justify-center items-center w-screen py-[50px] px-[20px]">
@@ -13,19 +59,94 @@ export default function FindATutor() {
         <div className="w-full max-w-[1168px] grid grid-cols-2 h-[80%]">
           {/* hero left secition */}
           <div className="gap-[24px]  h-full flex items-start flex-col justify-center ">
-            <h1 className="text-[#1D2939] text-left text-[36px] font-bold leading-[44px]">
-              Find new students with ease
-            </h1>
+            {userLogin.loggedIn === false ? (
+              <div className="gap-[24px]  h-full flex items-start flex-col justify-center ">
+                <h1 className="text-[#1D2939] text-left text-[36px] font-bold leading-[44px]">
+                  Find new students with ease
+                </h1>
 
-            <p className="text-[14px] leading-[20px] text-[#101F3D]">
-              TutorRoll connects you to students who need your servicess
-            </p>
-            <a
-              href="/"
-              className="hover:shadow-md hover:bg-[#026AA2] duration-300 bg-[#0086C9] px-[22px]  py-[12px] rounded-lg text-white "
-            >
-              Start browsing
-            </a>
+                <p className="text-[14px] leading-[20px] text-[#101F3D]">
+                  TutorRoll connects you to students who need your servicess
+                </p>
+                <div className="w-[360px] flex flex-col justify-center items-center gap-[12px]">
+                  <button
+                    className="py-[12px]  border border-[#D0D5DD] w-full rounded-lg flex gap-[10px] justify-center items-center"
+                    onClick={handleGoggleSignIn}
+                  >
+                    <img
+                      src={googleIcon}
+                      alt="googleIcon"
+                      className="w-[24px]"
+                    />
+                    Continue with Google
+                  </button>
+                  <button className="py-[12px]  border border-[#D0D5DD] w-full rounded-lg flex gap-[10px] justify-center items-center">
+                    <img src={fbIcon} alt="fbIcon" />
+                    Continue with Facebook
+                  </button>
+
+                  <p className="text-[14px] leading-[20px] text-[#475467]">
+                    OR
+                  </p>
+                  <div className="w-full">
+                    <p className="font-normal text-[#475467] text-[14px] p-[1px] text-left">
+                      Email
+                    </p>
+                    <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
+                      <input
+                        onChange={handleChange}
+                        name="email"
+                        placeholder="Your email"
+                        className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full">
+                    <p className="font-normal text-[#475467] text-[14px] p-[1px] text-left">
+                      Password
+                    </p>
+                    <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
+                      <input
+                        onChange={handleChange}
+                        type="password"
+                        name="password"
+                        placeholder="*******"
+                        className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full">
+                    <p className="font-normal text-[#475467] text-[14px] p-[1px] text-left">
+                      Re-Enter Password
+                    </p>
+                    <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
+                      <input
+                        type="password"
+                        name="repassword"
+                        placeholder="*******"
+                        className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    onClick={createNewEmailPasswordUser}
+                    className="hover:shadow-md hover:bg-[#026AA2] duration-300 bg-[#0086C9] px-[22px]  py-[12px] rounded-lg text-white w-full"
+                  >
+                    Sign up with email
+                  </button>
+                </div>
+
+                <p className="text-[14px] leading-[20px] text-[#475467]">
+                  Already have an account?
+                  <a href="/" className="text-[#0086C9]">
+                    {" "}
+                    Log In
+                  </a>
+                </p>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           {/* hero right secition */}
           <div className="flex items-center justify-end">

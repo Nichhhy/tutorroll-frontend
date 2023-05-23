@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Stepper from "./Stepper";
 import StepperControl from "./StepperControl";
-import { UseContextProvider } from "../Contexts/StepperContext";
 
 import TeacherStep1 from "./FormSteps/TeacherStep1";
 import TeacherStep2 from "./FormSteps/TeacherStep2";
@@ -62,7 +61,7 @@ export default function Tabs() {
         <Stepper steps={steps} currentStep={currentStep} />
 
         <div className="my-[70px] p-10 w-full max-w-[560px] px-[32px] py-[24px] bg-white rounded-[10px]">
-          <UseContextProvider>{displayStep(currentStep)}</UseContextProvider>
+          {displayStep(currentStep)}
         </div>
       </div>
 
