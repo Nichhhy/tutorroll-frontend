@@ -10,22 +10,82 @@ import {
   updateCitizenship,
   updateGender,
   updateRace,
+  updateEmail,
 } from "../../Contexts/Slice/UserPersonalDetailSlice";
+import axios from "axios";
+
+const BACKEND_URL =
+  "https://fkbvyflxwl.execute-api.ap-southeast-1.amazonaws.com";
 
 export default function TecherStep1() {
   const userPersonal = useSelector((state) => state.userPersonal);
-  const [step1, setStep1] = useState(userPersonal);
+  const userLogin = useSelector((state) => state.userLogin);
+  const [step1, setStep1] = useState({
+    citizenship: "",
+    dob: "",
+    email: "",
+    firstName: "",
+    gender: "",
+    lastName: "",
+    phone: "",
+    race: "",
+  });
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(updateFirstName(step1.firstName));
-    dispatch(updateLastName(step1.lastName));
-    dispatch(updateDOB(step1.DOB));
-    dispatch(updatePhone(step1.phone));
-    dispatch(updateCitizenship(step1.citizenship));
-    dispatch(updateGender(step1.gender));
-    dispatch(updateRace(step1.race));
+    /*  try {
+      axios
+        .get(`${BACKEND_URL}/tutorStep1/get/${userLogin.email}`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.data.length !== 0) {
+            console.log(response);
+            dispatch(updateEmail(response.data.data[0].email));
+            dispatch(updateFirstName(response.data.data[0].firstName));
+            dispatch(updateLastName(response.data.data[0].lastName));
+            dispatch(updateDOB(response.data.data[0].DOB));
+            dispatch(updatePhone(response.data.data[0].phone));
+            dispatch(updateCitizenship(response.data.data[0].citizenship));
+            dispatch(updateGender(response.data.data[0].gender));
+            dispatch(updateRace(response.data.data[0].race));
+          } else {
+            console.log(response);
+          }
+        })
+        .then(() => {
+          setStep1(userPersonal);
+        });
+    } catch (err) {
+      console.log(err);
+    } */
+    try {
+      axios
+        .post(
+          `${BACKEND_URL}/getPersonalInfo`,
+          {
+            email: "Nicholas@Nicholas.com",
+          },
+          {
+            headers: {
+              "Content-Type": "text/plain",
+            },
+          }
+        )
+        .then((response) => {
+          setStep1(response.data);
+          console.log(response);
+        })
+        .then(() => {
+          console.log(step1);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(step1);
   }, [step1]);
 
   const handleChange = (e) => {
@@ -85,7 +145,7 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={step1["firstName"] || ""}
+              value={step1.firstName ? step1.firstName : ""}
               name="firstName"
               placeholder="First Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
@@ -99,7 +159,7 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={step1["lastName"] || ""}
+              value={step1.lastName ? step1.lastName : ""}
               name="lastName"
               placeholder="last Name"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
@@ -115,9 +175,9 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={step1["DOB"] || ""}
+              value={step1.dob ? step1.dob : ""}
               name="DOB"
-              placeholder="First Name"
+              placeholder="DD/MM/YYYY"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
             />
           </div>
@@ -129,7 +189,7 @@ export default function TecherStep1() {
           <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
             <input
               onChange={handleChange}
-              value={step1["phone"] || ""}
+              value={step1.phone ? step1.phone : ""}
               name="phone"
               placeholder="+65 1234 5678"
               className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
@@ -151,7 +211,7 @@ export default function TecherStep1() {
                   onChange={handleChange}
                   value="Singaporean/PR"
                   checked={step1.citizenship === "Singaporean/PR"}
-                />{" "}
+                />
                 Singaporean/PR
               </label>
             </div>

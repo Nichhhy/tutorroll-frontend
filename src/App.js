@@ -14,18 +14,18 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavigationBar />{" "}
-        <AuthContextProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/findatutor" element={<FindATutor />} />
-
-            <Route path="/joinastutor" element={<FindATutor />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/TeacherProfile" element={<TeacherProfile />} />
-          </Routes>
-        </AuthContextProvider>
-        <Footer />
+        {/* <AuthContextProvider> */}
+        {/* <NavigationBar /> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/findatutor" element={<FindATutor />} />
+          <Route path="/joinastutor" element={<FindATutor />} />
+          <Route path="/teacherSignUp" element={<Tabs />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/teacherProfile" element={<TeacherProfile />} />
+        </Routes>
+        {/* </AuthContextProvider> */}
+        <Footer />{" "}
       </BrowserRouter>
     </div>
   );

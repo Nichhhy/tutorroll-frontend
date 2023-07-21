@@ -3,6 +3,7 @@ import icon from "../../Images/Icon/Bluetick.png";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+import userDp from "../../Images/user.png";
 export default function TeacherStepReview() {
   const userPref = useSelector((state) => state.userPref);
   const userPersonal = useSelector((state) => state.userPersonal);
@@ -26,6 +27,7 @@ export default function TeacherStepReview() {
         Review your profile
       </p>
       <TutorCard
+        tutorImage={userDp}
         data={teachingSubs}
         name={userPersonal.firstName + " " + userPersonal.lastName}
         bio={userQualification.bio}

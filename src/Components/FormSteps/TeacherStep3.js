@@ -4,12 +4,42 @@ import {
   updateTutorCat,
   updateYOE,
   updateBio,
+  updateWholeSecSch,
+  updateWholeJc,
+  updateWholeDipuni,
 } from "../../Contexts/Slice/UserQualification";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
+const BACKEND_URL = "http://localhost:8080";
 
 export default function TeacherStep3() {
   const userQualification = useSelector((state) => state.userQualification);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      axios
+        .get(`${BACKEND_URL}/tutorStep3/get/${userQualification.email}`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.data.length !== 0) {
+            console.log(response);
+            dispatch(updateHighestEd(response.data.data[0].highestEd));
+            dispatch(updateTutorCat(response.data.data[0].tutorCat));
+            dispatch(updateYOE(response.data.data[0].YOE));
+            dispatch(updateBio(response.data.data[0].bio));
+            dispatch(updateWholeSecSch(response.data.data[0].secSch));
+            dispatch(updateWholeJc(response.data.data[0].jc));
+            dispatch(updateWholeDipuni(response.data.data[0].dipuni));
+          } else {
+            console.log(response);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   const handleChange = (e) => {
     switch (e.target.name) {

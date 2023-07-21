@@ -3,7 +3,14 @@ import SubjectTaughtWrapper from "../SubjectTaught/SubjectTaughtWrapper";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateLocation, updateTutStyle } from "../../Contexts/Slice/UserPref";
+import data from "./subject.json";
+
+import {
+  updateLocation,
+  updateTutStyle,
+  updateSubjectTaught,
+} from "../../Contexts/Slice/UserPref";
+import axios from "axios";
 
 const BACKEND_URL = "http://localhost:8080";
 
@@ -12,16 +19,37 @@ export default function Details() {
   /*   const [step2, setStep2] = useState(userPref); */
   const [checkedItems, setCheckedItems] = useState(userPref.location);
   const [checkedStyle, setcheckedStyle] = useState(userPref.tutStyle);
-  const dispatch = useDispatch();
+  /*   const dispatch = useDispatch(); */
 
   useEffect(() => {
+    /* try {
+      axios
+        .get(`${BACKEND_URL}/tutorStep2/get/${userPref.email}`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.data.length !== 0) {
+            console.log(response);
+            dispatch(updateLocation(response.data.data[0].location));
+            dispatch(updateTutStyle(response.data.data[0].tutStyle));
+            dispatch(updateSubjectTaught(response.data.data[0].subjectTaught));
+          } else {
+            console.log(response);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    } */
+    console.log(data);
+  }, []);
+
+  /*   useEffect(() => {
     dispatch(updateLocation(checkedItems));
   }, [checkedItems]);
 
   useEffect(() => {
     dispatch(updateTutStyle(checkedStyle));
   }, [checkedStyle]);
-
+ */
   const handleChange = (e) => {
     if (e.target.checked) {
       setCheckedItems([...checkedItems, e.target.value]);

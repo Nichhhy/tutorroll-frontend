@@ -14,6 +14,7 @@ import VJC from "../Images/HomePage/Schools/VJC.png";
 import { ptArr, ftArr, otherArr } from "../Data/PreviewTutorInfo.js";
 import ReviewPreview from "../Components/ReviewPreview";
 import clara from "../Images/HomePage/HomePageHero/Clara Lee.png";
+import tutor from "../Images/HomePage/HomePageHero/image 55.png";
 
 export default function Home() {
   return (
@@ -110,9 +111,9 @@ export default function Home() {
           Discover our top tutors
         </p>
         <div className="w-[1124px] flex items-center justify-center gap-[16px]">
-          <TutorCard />
-          <TutorCard />
-          <TutorCard />
+          <TutorCard tutorImage={tutor} />
+          <TutorCard tutorImage={tutor} />
+          <TutorCard tutorImage={tutor} />
         </div>
         <a
           href="/"

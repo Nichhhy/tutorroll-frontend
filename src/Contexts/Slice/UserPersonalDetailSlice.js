@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  email: "",
   firstName: "",
   lastName: "",
   DOB: "",
@@ -16,6 +17,9 @@ export const userPersonalSlice = createSlice({
   reducers: {
     updateFirstName: (state, action) => {
       state.firstName = action.payload;
+    },
+    updateEmail: (state, action) => {
+      state.email = action.payload;
     },
     updateLastName: (state, action) => {
       state.lastName = action.payload;
@@ -47,6 +51,7 @@ export const {
   updateCitizenship,
   updateGender,
   updateRace,
+  updateEmail,
 } = userPersonalSlice.actions;
 
 export default userPersonalSlice.reducer;

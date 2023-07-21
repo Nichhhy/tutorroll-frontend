@@ -44,9 +44,39 @@ export default function Login() {
           </button>
 
           <p className="text-[14px] leading-[20px] text-[#475467]">OR</p>
+          <div className="w-full">
+            <p className="font-normal text-[#475467] text-[14px] p-[1px] text-left">
+              Email
+            </p>
+            <div
+              className={`flex rounded-lg border  bg-[#FCFCFD] px-[12px] py-[8px] w-full `}
+            >
+              <input
+                name="email"
+                placeholder="Your email"
+                className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <p className="font-normal text-[#475467] text-[14px] p-[1px] text-left">
+              Password
+            </p>
+            <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
+              <input
+                type="password"
+                name="password"
+                placeholder="*******"
+                className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
+              />
+            </div>
+          </div>
+          <button className="hover:shadow-md hover:bg-[#026AA2] duration-300 bg-[#0086C9] px-[22px]  py-[12px] rounded-lg text-white w-full">
+            Login
+          </button>
         </div>
       </div>
-      <div className="flex justify-center items-center bg-cover bg-no-repeat bg-center w-[50%] bg-[url(https://s3-alpha-sig.figma.com/img/381b/d032/b56406633380609c8441f0bfd627bac3?Expires=1684713600&Signature=eNoVh2iBWXsui-5~-tLxalXtozi~vJpP7XzOqjIOXJHjwZ9lOVYBWVWJFVGCPR8QL1C5eOr6heon3k462bJ~PLEE~24MtdwGKgcI-6UWeq9KMf5K3~fj6qG~EHf3jusKn2VJqo1IokFVknd4-q9D2s6TPPuDsgkFr~dMgxpc0VtMVy-YsfKPyp2n2ikMRGvbNDhch2tW5quA5S6IUnONgSFmf4v14SnPvAJO-CAeTF9YoIogWl~HmaixBJAxmDBcECdEqhsMoRyqjMHg4ZJMoR36bqHyCypSH0zLKtg8jWpT2-uFGrQUqYswj9PkoLTqqLE6p33SSx3Tr1y8aGUjQA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)]">
+      <div className="flex justify-center items-center bg-cover bg-no-repeat bg-center w-[50%] bg-[url(https://s3-alpha-sig.figma.com/img/381b/d032/b56406633380609c8441f0bfd627bac3?Expires=1686528000&Signature=DCD6mx5j2VcCKax-FvTx3C2tkE4jqbmWoQOj9I5e2Hn5EBI~OXD7-beCVtUXHJqacQeIab0aU-H03hre2ZcLCVx1NN0FGP9Fn6CqUyEPHbRw8iVVI2Pq1pNJ3dJtbD32wq4Hyo6gtlZosMfBeqWLMv-vh5kCcgFyN0DkujGNjBJ206AZuHFhJer04NDFeTQUgUqvMXZIuYvbxvCmnfoSqCpVLz9~-oUSab7YA187ciQvOfaOoBa88xyh95YHJPZ9uDQYsNy4fksCmR~vGOX-qKYpVQdswcQhDZBveJ86bHck4kHv1hJIfIuFF1GxlOckUGxfkQlBICK7SCPUGFS1Tw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)]">
         <ReviewPreview
           picUrl={clara}
           name="Clara Lee"

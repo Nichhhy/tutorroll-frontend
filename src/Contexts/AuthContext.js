@@ -9,13 +9,31 @@ import {
   signOut,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { updateEmail as updatePersonalEmail } from "../Contexts/Slice/UserPersonalDetailSlice";
+import { updateEmail as updatePrefEmail } from "../Contexts/Slice/UserPref";
+import { updateEmail as updateQualEmail } from "../Contexts/Slice/UserQualification";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const BACKEND_URL = "http://localhost:8080";
 
 const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [user, setUser] = useState();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log(currentUser);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
@@ -41,32 +59,51 @@ export default function AuthContextProvider({ children }) {
   };
 
   const createNewUser = (email, password) => {
-    let existingUser = false;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        setUser(userCredential.user);
 
-    axios
-      .get(`${BACKEND_URL}/user/${email}`)
-      .then((response) => {
-        if (response.data.length !== 0) {
-          existingUser = true;
-        }
+        // ...
       })
       .then(() => {
-        if (existingUser === false) {
-          createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              // Signed in
-              setUser(userCredential.user);
-              alert("userCreated");
-              // ...
+        try {
+          axios
+            .post(`${BACKEND_URL}/user`, {
+              email: email,
+              password: password,
+              userType: "Tutor",
+              loggedIn: true,
             })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              // ..
+            .then((response) => {
+              axios.post(`${BACKEND_URL}/tutorStep1/`, {
+                email: email,
+                firstName: "",
+                lastName: "",
+                DOB: "",
+                phone: "",
+                citizenship: "",
+                gender: "",
+                race: "",
+              });
+            })
+            .then(() => {
+              dispatch(updatePersonalEmail(email));
+              dispatch(updatePrefEmail(email));
+              dispatch(updateQualEmail(email));
             });
-        } else {
-          alert("shit");
+
+          console.log("clicked");
+        } catch (err) {
+          console.log(err);
         }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+
+        // ..
       });
   };
 
@@ -74,15 +111,6 @@ export default function AuthContextProvider({ children }) {
     signOut(auth);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      console.log(currentUser);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
   return (
     <AuthContext.Provider value={{ googleSignIn, createNewUser, logout, user }}>
       {children}

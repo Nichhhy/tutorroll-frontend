@@ -3,6 +3,7 @@ import userPersonalReducer from "./Slice/UserPersonalDetailSlice";
 import userPrefReducer from "./Slice/UserPref";
 import userQualificationReducer from "./Slice/UserQualification";
 import userLogInReducer from "./Slice/UserLogIn";
+import userLogInRegReducer from "./Slice/UserLoginReg";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
 
@@ -24,6 +25,10 @@ const userLoginPersistConfig = {
   key: "userLogin",
   storage,
 };
+const userLoginRegPersistConfig = {
+  key: "userLoginReg",
+  storage,
+};
 const userPrefPersistConfig = {
   key: "userPref",
   storage,
@@ -36,6 +41,7 @@ const userQualificationPersistConfig = {
 const rootReducer = combineReducers({
   userPersonal: persistReducer(userPersonalPersistConfig, userPersonalReducer),
   userLogin: persistReducer(userLoginPersistConfig, userLogInReducer),
+  userLoginReg: persistReducer(userLoginRegPersistConfig, userLogInRegReducer),
   userPref: persistReducer(userPrefPersistConfig, userPrefReducer),
   userQualification: persistReducer(
     userQualificationPersistConfig,

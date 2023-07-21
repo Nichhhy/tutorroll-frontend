@@ -5,7 +5,11 @@ import ReviewSummary from "./ReviewSummary";
 export default function TutorCard(props) {
   return (
     <div className="flex justify-start flex-col items-start gap-[10px] bg-white p-[16px] rounded-lg max-w-[364px] border border-[#EBEBEB]">
-      <img src={tutor} alt="tutorDp" className="w-[110px] h-[110px]" />
+      <img
+        src={props.tutorImage}
+        alt="tutorDp"
+        className="w-[110px] h-[110px]"
+      />
       <p className="text-[18px]">{props.name ? props.name : "Meaghan Chan"}</p>
       <div className="flex gap-[10px]">
         <div>

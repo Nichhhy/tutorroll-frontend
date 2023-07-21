@@ -4,12 +4,11 @@ const initialState = {
   email: "",
   password: "",
   userType: "",
-  stage: "LoginDetail",
   loggedIn: false,
 };
 
-export const userLoginSlice = createSlice({
-  name: "userLogin",
+export const userLoginRegSlice = createSlice({
+  name: "userLoginReg",
   initialState,
   reducers: {
     updateEmail: (state, action) => {
@@ -24,18 +23,10 @@ export const userLoginSlice = createSlice({
     updateLogin: (state, action) => {
       state.loggedIn = action.payload;
     },
-    updateStage: (state, action) => {
-      state.stage = action.payload;
-    },
   },
 });
 
-export const {
-  updateEmail,
-  updatePassword,
-  updateUserType,
-  updateLogin,
-  updateStage,
-} = userLoginSlice.actions;
+export const { updateEmail, updatePassword, updateUserType, updateLogin } =
+  userLoginRegSlice.actions;
 
-export default userLoginSlice.reducer;
+export default userLoginRegSlice.reducer;

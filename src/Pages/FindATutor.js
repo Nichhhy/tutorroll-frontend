@@ -13,12 +13,29 @@ import {
   updatePassword,
   updateUserType,
 } from "../Contexts/Slice/UserLogIn";
+import { updateEmail as updatePersonalEmail } from "../Contexts/Slice/UserPersonalDetailSlice";
+import { updateEmail as updatePrefEmail } from "../Contexts/Slice/UserPref";
+import { updateEmail as updateQualEmail } from "../Contexts/Slice/UserQualification";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const BACKEND_URL = "http://localhost:8080";
 
 export default function FindATutor() {
-  const { createNewUser, googleSignIn } = UserAuth();
+  const { createNewUser, googleSignIn, user } = UserAuth();
+  const [validateInfo, setValidateInfo] = useState([]);
 
   const userLogin = useSelector((state) => state.userLogin);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(updateUserType("Tutor"));
+    dispatch(updateEmail(""));
+    dispatch(updatePassword(""));
+  }, []);
 
   const handleGoggleSignIn = async () => {
     try {
@@ -29,13 +46,43 @@ export default function FindATutor() {
     }
   };
 
-  const createNewEmailPasswordUser = async () => {
-    try {
-      await createNewUser(userLogin.email, userLogin.password);
-      console.log("clicked");
-    } catch (err) {
-      console.log(err);
-    }
+  const createNewEmailPasswordUser = async (email, password) => {
+    await createNewUser(email, password);
+    navigate("/teacherSignUp");
+    /* const newUser = createNewUser(userLogin.email, userLogin.password);
+    console.log(user); */
+    /* if (userExist === "created") {
+      try {
+        axios
+          .post(`${BACKEND_URL}/user`, userLogin)
+          .then((response) => {
+            axios.post(`${BACKEND_URL}/tutorStep1/`, {
+              email: userLogin.email,
+              firstName: "",
+              lastName: "",
+              DOB: "",
+              phone: "",
+              citizenship: "",
+              gender: "",
+              race: "",
+            });
+          })
+          .then(() => {
+            dispatch(updatePersonalEmail(userLogin.email));
+            dispatch(updatePrefEmail(userLogin.email));
+            dispatch(updateQualEmail(userLogin.email));
+          })
+          .then(() => {
+            navigate("/teacherSignUp");
+          });
+
+        console.log("clicked");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      alert("user already exist");
+    } */
   };
 
   const handleChange = (e) => {
@@ -92,7 +139,13 @@ export default function FindATutor() {
                     <p className="font-normal text-[#475467] text-[14px] p-[1px] text-left">
                       Email
                     </p>
-                    <div className=" flex rounded-lg border border-[#D0D5DD] bg-[#FCFCFD] px-[12px] py-[8px] w-full">
+                    <div
+                      className={`flex rounded-lg border  bg-[#FCFCFD] px-[12px] py-[8px] w-full ${
+                        validateInfo.includes("email")
+                          ? "border-[#FDA29B]"
+                          : "border-[#D0D5DD]"
+                      } `}
+                    >
                       <input
                         onChange={handleChange}
                         name="email"
@@ -115,7 +168,7 @@ export default function FindATutor() {
                       />
                     </div>
                   </div>
-                  <div className="w-full">
+                  {/* <div className="w-full">
                     <p className="font-normal text-[#475467] text-[14px] p-[1px] text-left">
                       Re-Enter Password
                     </p>
@@ -127,9 +180,14 @@ export default function FindATutor() {
                         className="w-full font-normal appearance-none  text-[#667085] outline-none text-[14px]"
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <button
-                    onClick={createNewEmailPasswordUser}
+                    onClick={() =>
+                      createNewEmailPasswordUser(
+                        userLogin.email,
+                        userLogin.password
+                      )
+                    }
                     className="hover:shadow-md hover:bg-[#026AA2] duration-300 bg-[#0086C9] px-[22px]  py-[12px] rounded-lg text-white w-full"
                   >
                     Sign up with email

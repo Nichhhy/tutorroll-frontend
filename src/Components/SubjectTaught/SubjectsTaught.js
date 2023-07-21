@@ -9,7 +9,12 @@ import {
   addOneSubject,
   deleteOneSubject,
 } from "../../Contexts/Slice/UserPref";
+
+import data from "../FormSteps/subject.json";
+import levels from "../FormSteps/levels.json";
+
 const BACKEND_URL = "http://localhost:8080";
+
 export default function SubjectTaught(props) {
   const userPref = useSelector((state) => state.userPref);
 
@@ -19,14 +24,37 @@ export default function SubjectTaught(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(`${BACKEND_URL}/subject/level`).then((response) => {
-      setLevels(response.data);
-    });
+    switch (levels) {
+      case "Primary":
+        setSubjects(data.Primary);
+        break;
+      case "Lower Secondary":
+        setSubjects(data.LowerSecondary);
+        break;
+      case "Upper Secondary":
+        setSubjects(data.UpperSecondary);
+        break;
+      case "Integrated Programme (IP)":
+        setSubjects(data.IP);
+        break;
+      case "International Baccalaureate (IB)":
+        setSubjects(data.IB);
+        break;
 
-    axios.get(`${BACKEND_URL}/subject/level/Primary`).then((response) => {
-      setSubjects(response.data);
-    });
-  }, []);
+      case "IGSCE":
+        setSubjects(data.IGSCE);
+        break;
+      case "AEIS":
+        setSubjects(data.AEIS);
+        break;
+      case "Junior College":
+        setSubjects(data.JuniorCollege);
+        break;
+
+      default:
+        return setSubjects(data.Primary);
+    }
+  }, [levels]);
 
   const onChangeLevel = (e) => {
     let newSub = e.target.value.replace(/ /g, "%20");
@@ -76,10 +104,10 @@ export default function SubjectTaught(props) {
           value={userPref.subjectTaught[props.index].level}
           name="level"
         >
-          {levels.data &&
-            levels.data.map((item, index) => (
-              <option key={index} value={item.levelName}>
-                {item.levelName}
+          {levels &&
+            levels.level.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
               </option>
             ))}
         </select>
@@ -114,10 +142,10 @@ export default function SubjectTaught(props) {
           placeholder="Select Level"
           onChange={onChangeSubject}
         >
-          {subjects.data &&
-            subjects.data.map((item, index) => (
-              <option key={index} value={item.subjectName}>
-                {item.subjectName}
+          {subjects &&
+            subjects.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
               </option>
             ))}
         </select>

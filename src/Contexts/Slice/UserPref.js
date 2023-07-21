@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  email: "",
   location: [],
   tutStyle: [],
   subjectTaught: [{ level: "Primary", subjects: [], minimum: "" }],
@@ -10,6 +11,9 @@ export const userPrefSlice = createSlice({
   name: "userPref",
   initialState,
   reducers: {
+    updateEmail: (state, action) => {
+      state.email = action.payload;
+    },
     updateLocation: (state, action) => {
       state.location = action.payload;
     },
@@ -76,6 +80,7 @@ export const {
   deleteSubject,
   addOneSubject,
   deleteOneSubject,
+  updateEmail,
 } = userPrefSlice.actions;
 
 export default userPrefSlice.reducer;

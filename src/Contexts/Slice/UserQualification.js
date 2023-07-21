@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  email: "",
   highestEd: "",
   tutorCat: "",
   YOE: "",
@@ -23,17 +24,30 @@ export const userQulificationSlice = createSlice({
   name: "userQualification",
   initialState,
   reducers: {
+    updateEmail: (state, action) => {
+      state.email = action.payload;
+    },
     updateHighestEd: (state, action) => {
       state.highestEd = action.payload;
     },
     updateTutorCat: (state, action) => {
       state.tutorCat = action.payload;
     },
+
     updateYOE: (state, action) => {
       state.YOE = action.payload;
     },
     updateBio: (state, action) => {
       state.bio = action.payload;
+    },
+    updateWholeSecSch: (state, action) => {
+      state.secSch = action.payload;
+    },
+    updateWholeJc: (state, action) => {
+      state.jc = action.payload;
+    },
+    updateWholeDipuni: (state, action) => {
+      state.dipuni = action.payload;
     },
     updateSecSch: (state, action) => {
       switch (action.payload.type) {
@@ -128,9 +142,13 @@ export const {
   updateBio,
   updateSecSch,
   updateJc,
+  updateWholeSecSch,
+  updateWholeJc,
+  updateWholeDipuni,
   addDipUni,
   updateDipUni,
   deleteDipUni,
+  updateEmail,
 } = userQulificationSlice.actions;
 
 export default userQulificationSlice.reducer;
