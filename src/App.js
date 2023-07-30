@@ -9,6 +9,7 @@ import Tabs from "./Components/Tabs";
 import AuthContextProvider from "./Contexts/AuthContext";
 import Login from "./Pages/Login";
 import TeacherProfile from "./Pages/TeacherProfile";
+import Search from "./Pages/Search";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/findatutor" element={<FindATutor />} />
-
+            <Route path="/search" element={<Search />}></Route>
             <Route path="/joinastutor" element={<FindATutor />} />
             <Route path="/login" element={<Login />} />
             <Route path="/TeacherProfile" element={<TeacherProfile />} />
